@@ -1,22 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title th:text="${title}">Insert title here</title>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Insert title here</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/starter-template.css" th:href="@{/css/starter-template.css}" rel="stylesheet">
 </head>
+
+
 <body>
-<h1 th:text="${title}">title</h1>
-<table>
-	<tr>
-		<th>id</th><th>name</th><th>email</th><th>contents</th><th>datetime</th>
-	</tr>
-	<tr th:each="v : ${list}">
-		<td th:text="${v.id}">1</td>
-		<td th:text="${v.name}"></td>
-		<td th:text="${v.email}"></td>
-		<td th:text="${v.contents}"></td>
-		<td th:text="${v.created}"></td>
-	</tr>
-</table>
+    <div th:replace="~{block/header::headerA}"></div>
+    <main role="main" class="container">
+        <div class="starter-template">
+            <h1 th:text="${title}">title</h1>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">name</th>
+                        <th scope="col">email</th>
+                        <th scope="col">contents</th>
+                        <th scope="col">datetime</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="v : ${list}">
+                        <td scope="row" th:text="${v.id}">1</td>
+                        <td th:text="${v.name}">name</td>
+                        <td th:text="${v.email}">email</td>
+                        <td th:text="${v.contents}">contents</td>
+                        <td th:text="${v.created}">created</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
+
 </html>
