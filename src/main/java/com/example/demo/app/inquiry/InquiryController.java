@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.demo.entity.Inquiry;
+import com.example.demo.service.InquiryNotFoundException;
 import com.example.demo.service.InquiryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +30,12 @@ public class InquiryController {
         this.inquiryService = inquiryService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String index(Model model) {
         List<Inquiry> list = inquiryService.getAll();
+
+        // 例外確認のためあえて例外を発生させる処理
+        // this.illegalUpdate(model);
 
         model.addAttribute("list", list);
         model.addAttribute("title", "受付一覧");
@@ -82,4 +87,29 @@ public class InquiryController {
         return "redirect:/inquiry/form";
     }
 
+    private void illegalUpdate(Model model) {
+        Inquiry i = new Inquiry();
+        i.setId(4); // 存在しないID
+        i.setName("name");
+        i.setEmail("email");
+        i.setContents("contents");
+
+        try {
+            inquiryService.update(i);
+        } catch (InquiryNotFoundException e) {
+            model.addAttribute("message", e);
+            e.printStackTrace();
+        }
+
+        inquiryService.update(i);
+
+    }
+
+    // コントローラに記載するとコントローラ内のメソッドに対してキャッチ可能
+    // WebMvcControllerAdviceに記載した物よりこちらの方が優先度が高いので両方に記載がある場合はこちらが実行される。
+    @ExceptionHandler(InquiryNotFoundException.class)
+    public String handleException(InquiryNotFoundException e, Model model) {
+        model.addAttribute("message", "コントローラ内：" + e.toString());
+        return "error/CustomPage";
+    }
 }
