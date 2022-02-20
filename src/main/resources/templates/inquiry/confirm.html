@@ -20,11 +20,11 @@
         </div>
         <div th:object="${inquiryForm}">
             <div class="mb-5">
-            <ul class="list-group">
-                <li th:text="*{name}" class="list-group-item">name</li>
-                <li th:text="*{email}" class="list-group-item">email</li>
-                <li th:text="*{contents}" class="list-group-item">contents</li>
-            </ul>
+                <ul class="list-group">
+                    <li th:text="*{name}" class="list-group-item">name</li>
+                    <li th:text="*{email}" class="list-group-item">email</li>
+                    <li th:text="*{contents}" class="list-group-item">contents</li>
+                </ul>
             </div>
             <form action="#" method="post" th:action="@{/inquiry/form}" th:object="${inquiryForm}">
                 <input type="hidden" name="name" th:value="*{name}">

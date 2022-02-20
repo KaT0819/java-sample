@@ -20,11 +20,11 @@
             <h2 th:text="${complete}"></h2>
         </div>
 
-        <div th:unless="${#strings.isEmpty(complete)}" >
+        <div th:unless="${#strings.isEmpty(complete)}">
             <div th:text="${complete}" class="alert alert-success" role="alert">
-              A simple success alert?check it out!
+                A simple success alert?check it out!
             </div>
-        </div>       
+        </div>
 
         <form action="#" method="post" th:action="@{/inquiry/confirm}" th:object="${inquiryForm}">
             <div class="mb-3">
@@ -39,8 +39,7 @@
             </div>
             <div class="mb-3">
                 <label for="contents" class="form-label">詳細</label>
-                <textarea name="contents" class="form-control" id="contents" cols="40" rows="3"
-                    th:field="*{contents}"></textarea><br>
+                <textarea name="contents" class="form-control" id="contents" cols="40" rows="3" th:field="*{contents}"></textarea><br>
                 <di class="text-danger" th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}">
             </div>
             </div>
