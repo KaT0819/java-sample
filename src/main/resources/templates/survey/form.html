@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=800, initial-scale=1.0">
+    <title th:text="${title}">form title</title>
+</head>
+<body>
+    <h1 th:text="${title}">form title</h1>
+    <h2 th:text="${complete}"></h2>
+    <form action="#" method="post" th:action="@{/survey/confirm}" th:object="${surveyForm}">
+        <label for="age">年齢</label>
+        <input type="number" id="age" name="age" th:value="*{age}"><br>
+        <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+        <label for="satisfaction">満足度</label>
+        <input type="radio" name="satisfaction" value="1" th:checked="*{satisfaction == 1}">1
+        <input type="radio" name="satisfaction" value="2" th:checked="*{satisfaction == 2}">2
+        <input type="radio" name="satisfaction" value="3" th:checked="*{satisfaction == 3}">3
+        <input type="radio" name="satisfaction" value="4" th:checked="*{satisfaction == 4}">4
+        <input type="radio" name="satisfaction" value="5" th:checked="*{satisfaction == 5}">5
+        <div th:if="${#fields.hasErrors('satisfaction')}" th:errors="*{satisfaction}"></div>
+        <br>
+        <label for="comments">コメント</label>
+        <textarea name="comments" id="comments" cols="40" rows="3" th:field="*{comments}"></textarea><br>
+        <div th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}"></div>
+        <br>
+        <input type="submit" value="確認">
+    </form>
+</body>
+</html>
