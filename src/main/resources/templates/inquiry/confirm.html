@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=800, initial-scale=1.0">
     <title th:text="${title}">form title</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/starter-template.css" th:href="@{/css/starter-template.css}" rel="stylesheet">
 </head>
+
 <body>
-    <h1 th:text="${title}">form title</h1>
-    <div th:object="${inquiryForm}">
-        <p th:text="*{name}"></p>
-        <p th:text="*{email}"></p>
-        <p th:text="*{contents}"></p>
-        <form action="#" method="post" th:action="@{/inquiry/form}" th:object="${inquiryForm}">
-            <input type="hidden" name="name" th:value="*{name}">
-            <input type="hidden" name="email" th:value="*{email}">
-            <input type="hidden" name="contents" th:value="*{contents}">
-            <input type="submit" value="戻る">
-        </form>
-        <form action="#" method="post" th:action="@{/inquiry/complete}">
-            <input type="hidden" name="name" th:value="*{name}">
-            <input type="hidden" name="email" th:value="*{email}">
-            <input type="hidden" name="contents" th:value="*{contents}">
-            <input type="submit" value="完了">
-        </form>
-    </div>
+    <div th:replace="~{block/header::headerA}"></div>
+    <main role="main" class="container">
+        <div class="starter-template">
+            <h1 th:text="${title}">form title</h1>
+        </div>
+        <div th:object="${inquiryForm}">
+            <div class="mb-5">
+            <ul class="list-group">
+                <li th:text="*{name}" class="list-group-item">name</li>
+                <li th:text="*{email}" class="list-group-item">email</li>
+                <li th:text="*{contents}" class="list-group-item">contents</li>
+            </ul>
+            </div>
+            <form action="#" method="post" th:action="@{/inquiry/form}" th:object="${inquiryForm}">
+                <input type="hidden" name="name" th:value="*{name}">
+                <input type="hidden" name="email" th:value="*{email}">
+                <input type="hidden" name="contents" th:value="*{contents}">
+                <button type="submit" class="btn btn-secondary">戻る</button>
+            </form>
+            <form action="#" method="post" th:action="@{/inquiry/complete}">
+                <input type="hidden" name="name" th:value="*{name}">
+                <input type="hidden" name="email" th:value="*{email}">
+                <input type="hidden" name="contents" th:value="*{contents}">
+                <button type="submit" class="btn btn-primary">完了</button>
+            </form>
+        </div>
+    </main>
 </body>
+
 </html>
